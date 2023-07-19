@@ -13,9 +13,15 @@ const urlsToCache = ['/'];
 
 self.addEventListener('install', event => {
   console.log('Service Worker installed');
-
+// * 이벤트 waitUntil은 서비스 워커가 설치 되면 아래 코드들이 실행 되어 완료 될 때 까지 기다리게 만든다.
   event.waitUntil(
-    
+    // caches.open은 Ripple이라는 이름의 캐시를 열고 필요한 리소스를 캐싱하는 로직을 구현 한다.
+    caches.open('Ripple').then(caches =>{
+      return caches.addAll(['/'])
+      //여기에는 필요한 리소스를 캐싱한다.
+    }).then(() => {
+      console.log('Resources 뭐시기')
+    })
 
   )
 });
