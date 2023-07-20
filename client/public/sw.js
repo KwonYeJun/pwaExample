@@ -28,7 +28,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('fetch',event =>{
   console.log("fetch intercepted:", event.request.url);
-
+  // event.respondWith()를 사용하여 네트워크 요청을 가로채고, 캐시에서 해당 요청에 대한 리소스를 찾아 반환하거나 캐시에 리소스가 없는 경우 원본 네트워크 요청을 진행한다.
   event.respondWith(
     caches.match(event.request)
     .then((response) => {
