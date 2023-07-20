@@ -30,11 +30,15 @@ self.addEventListener('fetch',event =>{
   console.log("fetch intercepted:", event.request.url);
   // event.respondWith()를 사용하여 네트워크 요청을 가로채고, 캐시에서 해당 요청에 대한 리소스를 찾아 반환하거나 캐시에 리소스가 없는 경우 원본 네트워크 요청을 진행한다.
   event.respondWith(
+
+    //caches.match(event.request)를 호출하여 해당 요청에 대한 캐시된 리소스를 찾는다.
     caches.match(event.request)
     .then((response) => {
+      // 해당 리소스를 찾았을 경우, 해당 리소스를 반환하고 응답이 종료된다.
       if(response){
         return response
       }
+      // 요청에 대한 리소스를 찾지 못한 경우, 원본 네트워크 요청을 fetch(event.request)를 통행 진행한다 이후 네트워크 응답이 종료되면 해당 응답을 반환한다.
       else{
         return fetch(event.request);
       }
