@@ -26,17 +26,36 @@ self.addEventListener('install', event => {
   )
 });
 
+self.addEventListener('fetch',event =>{
+  console.log("fetch intercepted:", event.request.url);
 
-self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
+    caches.match(event.request)
+    .then((response) => {
+      if(response){
+        return response
       }
-      return fetch(event.request);
+      else{
+        return fetch(event.request);
+      }
     })
-  );
+    .then(error => {
+      console.error('error에러 발생',error);
+    })
+  )
+
 });
+
+// self.addEventListener('fetch', (event) => {
+//   event.respondWith(
+//     caches.match(event.request).then((response) => {
+//       if (response) {
+//         return response;
+//       }
+//       return fetch(event.request);
+//     })
+//   );
+// });
 
 // service-worker.js
 
@@ -51,10 +70,10 @@ self.addEventListener('activate', event => {
   // 이전 버전의 캐시 정리 또는 업데이트 로직 작성 가능
 });
 // 네트워크 요청 가로채기
-// self.addEventListener('fetch', event => {
-//   console.log('Fetch intercepted:', event.request.url);
-//   // 캐시에서 리소스 반환 또는 네트워크 요청 수정 가능
-// });
+self.addEventListener('fetch', event => {
+  console.log('Fetch intercepted:', event.request.url);
+  // 캐시에서 리소스 반환 또는 네트워크 요청 수정 가능
+});
 // 알림 수신
 self.addEventListener('push', event => {
   console.log('Push notification received');
