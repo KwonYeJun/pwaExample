@@ -96,8 +96,18 @@ self.addEventListener('activate', event => {
 //   console.log('Fetch intercepted:', event.request.url);
 //   // 캐시에서 리소스 반환 또는 네트워크 요청 수정 가능
 // });
+
+
 // 알림 수신
 self.addEventListener('push', event => {
   console.log('Push notification received');
   // 알림을 처리하는 로직 작성 가능
+  const options = {
+    body: '핸들 이빠이 돌려',
+    icon: './ripplelogo192.png',
+    // 기타 옵션들 설정 가능하다.
+  };
+  event.waitUntil(
+    self.ServiceWorkerRegistration.showNotification('Notification Tite', options)
+  )
 });
