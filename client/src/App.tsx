@@ -47,7 +47,7 @@ function handleNotificationClick() {
 
 function sendNotification() {
   if ('Notification' in window && Notification.permission === 'granted') {
-    const notification = new Notification('해킹 알림이에요🎃', {
+    const notification = new Notification('해킹 알림이에요🎃 핸드폰 알림이 뜨는지 확인', {
       body: '알림을 설정해 주세요 찡긋',
       icon: 'path_to_icon', // 알림 아이콘 경로
     });
